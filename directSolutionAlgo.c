@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
   printf("Enter two end points\n");
   printf("\nEnter Point1:\n");
   scanf("%f%f", &X1, &Y1);
-  printf("\nEnter Point1:\n");
+  printf("\nEnter Point2:\n");
   scanf("%f%f", &X2, &Y2);
 
   glutInit(&argc, argv); //to initialize Graphic library utility
