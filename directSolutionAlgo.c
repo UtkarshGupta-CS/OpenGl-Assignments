@@ -5,7 +5,6 @@
 #include <math.h>
 
 float X1, Y1, X2, Y2, yIntercept;
-int steps;
 
 void dsAlgo()
 {
@@ -17,7 +16,7 @@ void dsAlgo()
   glBegin(GL_POINTS);
 
   glVertex2d(x, y);
-  steps = 6;
+
   int slope = (Y2 - Y1) / (X2 - X1);
 
   int k;
