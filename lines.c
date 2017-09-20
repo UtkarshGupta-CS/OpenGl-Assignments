@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
   glutInitWindowPosition(300, 300); // set window position on the screen
   glutInitWindowSize(500, 500);     //set display window width and height
   glutCreateWindow("Lines");  // create window with title
-  glClearColor(0.0, 1.0, 0.0, 0.0); // set the background color
+  glClearColor(1.0, 1.0, 1.0, 0.0); // set the background color
   glutDisplayFunc(display);         // callback function
   glutMainLoop();                   //INFITE TIME DISPALY OR INFINITE LOOP
   return 0;
