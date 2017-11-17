@@ -1,32 +1,43 @@
 #include <OpenGL/gl.h>
 #include <OpenGl/glu.h>
 #include <GLUT/glut.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
-float X1, X2, Y1, Y2;
-float Xmin, Xmax, Ymin, Ymax;
+void display();
+float xmin = -100;
+float ymin = -100;
+float xmax = 100;
+float ymax = 100;
+float xd1, yd1, xd2, yd2;
+
+void init(void)
+{
+
+  glClearColor(0.0, 0, 0, 0);
+  glMatrixMode(GL_PROJECTION);
+  gluOrtho2D(-300, 300, -300, 300);
+}
 
 int code(float x, float y)
 {
   int c = 0;
-  if (y > Ymax)
+  if (y > ymax)
     c = 8;
-  if (y < Ymin)
+  if (y < ymin)
     c = 4;
-  if (x > Xmax)
+  if (x > xmax)
     c = c | 2;
-  if (x < Xmin)
+  if (x < xmin)
     c = c | 1;
   return c;
 }
 
-void csa()
+void cohen_Line(float x1, float y1, float x2, float y2)
 {
-  int c1 = code(X1, Y1);
-  int c2 = code(X2, Y2);
-  float m = (Y2 - Y1) / (X2 - X1);
+  int c1 = code(x1, y1);
+  int c2 = code(x2, y2);
+  float m = (y2 - y1) / (x2 - x1);
   while ((c1 | c2) > 0)
   {
     if ((c1 & c2) > 0)
@@ -34,35 +45,35 @@ void csa()
       exit(0);
     }
 
-    float xi = X1;
-    float yi = Y1;
+    float xi = x1;
+    float yi = y1;
     int c = c1;
     if (c == 0)
     {
       c = c2;
-      xi = X2;
-      yi = Y2;
+      xi = x2;
+      yi = y2;
     }
     float x, y;
     if ((c & 8) > 0)
     {
-      y = Ymax;
-      x = xi + 1.0 / m * (Ymax - yi);
+      y = ymax;
+      x = xi + 1.0 / m * (ymax - yi);
     }
     else if ((c & 4) > 0)
     {
-      y = Ymin;
-      x = xi + 1.0 / m * (Ymin - yi);
+      y = ymin;
+      x = xi + 1.0 / m * (ymin - yi);
     }
     else if ((c & 2) > 0)
     {
-      x = Xmax;
-      y = yi + m * (Xmax - xi);
+      x = xmax;
+      y = yi + m * (xmax - xi);
     }
     else if ((c & 1) > 0)
     {
-      x = Xmin;
-      y = yi + m * (Xmin - xi);
+      x = xmin;
+      y = yi + m * (xmin - xi);
     }
 
     if (c == c1)
@@ -83,36 +94,47 @@ void csa()
   display();
 }
 
-void mouse(int button, int state, int x, int y)
+void mykey(unsigned char key, int x, int y)
 {
+  if (key == 'c')
+  {
+    printf("Hello");
+    cohen_Line(xd1, yd1, xd2, yd2);
+    glFlush();
+  }
+}
+void display()
+{
+
   glClear(GL_COLOR_BUFFER_BIT);
-  //if(button==GLUT_LEFT_BUTTON){
-  glClearColor(1, 0, 0, 0);
-  csa();
+  glColor3f(0.0, 1.0, 0.0);
+
+  glBegin(GL_LINE_LOOP);
+  glVertex2i(xmin, ymin);
+  glVertex2i(xmin, ymax);
+  glVertex2i(xmax, ymax);
+  glVertex2i(xmax, ymin);
+  glEnd();
+  glColor3f(1.0, 0.0, 0.0);
+  glBegin(GL_LINES);
+  glVertex2i(xd1, yd1);
+  glVertex2i(xd2, yd2);
+  glEnd();
   glFlush();
-  //}
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
-  printf("Enter two end points\n");
-  printf("\nEnter Point1:\n");
-  scanf("%f%f", &X1, &Y1);
-  printf("\nEnter Point2:\n");
-  scanf("%f%f", &X2, &Y2);
-
-  glutInit(&argc, argv); //to initialize Graphic library utility
-
-  glutInitWindowPosition(300, 300);               // set window position on the screen
-  glutInitWindowSize(500, 500);                   //set display window width and height
-  glutCreateWindow("Cohen Sutherland Algorithm"); // create window with title
-
-  glClearColor(0.0, 0, 0, 0);
-  glMatrixMode(GL_PROJECTION);
-  glViewport(0, 0, 250, 250);
-  gluOrtho2D(0, 0, 300, 300);
-
-  glutMouseFunc(mouse);
-  glutMainLoop(); //INFITE TIME DISPALY OR INFINITE LOOP
+  printf("Enter line co-ordinates:");
+  scanf("%f %f %f %f", &xd1, &yd1, &xd2, &yd2);
+  glutInit(&argc, argv);
+  glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+  glutInitWindowSize(600, 600);
+  glutInitWindowPosition(0, 0);
+  glutCreateWindow("Clipping");
+  glutDisplayFunc(display);
+  glutKeyboardFunc(mykey);
+  init();
+  glutMainLoop();
   return 0;
 }
