@@ -1,3 +1,8 @@
+/**
+ * Created By: Utkarsh Gupta
+ * Roll no.: R134215087
+ * Algo: Linag Barsky line clipping algo
+  */
 
 #include <OpenGL/gl.h>
 #include <OpenGl/glu.h>

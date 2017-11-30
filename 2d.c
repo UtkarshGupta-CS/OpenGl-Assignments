@@ -1,3 +1,8 @@
+/**
+ * Created By: Utkarsh Gupta
+ * Roll no.: R134215087
+ * Algo: 2D Transformation
+  */
 #include <OpenGL/gl.h>
 #include <OpenGl/glu.h>
 #include <GLUT/glut.h>
@@ -126,12 +131,12 @@ void myKey(unsigned char key, int x, int y)
     float b[3][3] = {{cos(3.14 / 2), sin(3.14 / 2), 0}, {-sin(3.14 / 2), cos(3.14 / 2), 0}, {0, 0, 1}};
     modify(OriginalTriangle, b, ModifiedTriangle);
   }
-  else if (key == 120)
+  else if (key == 120) // x
   {
     float b[3][3] = {{1, 0, 0}, {0, -1, 0}, {0, 0, 1}};
     modify(OriginalTriangle, b, ModifiedTriangle);
   }
-  else if (key == 121)
+  else if (key == 121) // y
   {
     float b[3][3] = {{-1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
     modify(OriginalTriangle, b, ModifiedTriangle);

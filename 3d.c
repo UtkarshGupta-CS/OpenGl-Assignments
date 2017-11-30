@@ -1,3 +1,9 @@
+/**
+ * Created By: Utkarsh Gupta
+ * Roll no.: R134215087
+ * Algo: 3D Transformation
+  */
+
 #include <OpenGL/gl.h>
 #include <OpenGl/glu.h>
 #include <GLUT/glut.h>

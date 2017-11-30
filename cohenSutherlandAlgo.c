@@ -1,3 +1,9 @@
+/**
+ * Created By: Utkarsh Gupta
+ * Roll no.: R134215087
+ * Algo: Cohen Sutherland line clipping algo
+  */
+
 #include <OpenGL/gl.h>
 #include <OpenGl/glu.h>
 #include <GLUT/glut.h>
